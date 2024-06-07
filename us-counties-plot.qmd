@@ -1,0 +1,30 @@
+---
+title: "us-counties-plot"
+author: "Aarya Shah"
+format: html
+---
+
+```{r}
+#| label: setup
+#| echo: false
+#| message: false
+library(tidyverse)
+library(primer.data)
+```
+
+```{r}
+#| warning: false
+#| label: plot
+#| echo: false
+#| message: false
+connectedness |>
+  drop_na() |> 
+    ggplot(mapping = aes(x = population, y = connectedness)) +
+    geom_point() +
+    scale_x_log10(labels = scales::comma_format()) +
+    geom_smooth(method = "lm", formula = y ~ log(x), sc = FALSE) + 
+    labs(title = "Us County Populations versus Economic Connectedness",
+         subtutle = "Population size does not matter to EC",
+         x = "Population", y = "Economic Connectedness",
+         caption = "Oppertunity Insights")
+```
